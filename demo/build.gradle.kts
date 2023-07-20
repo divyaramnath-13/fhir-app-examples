@@ -3,6 +3,7 @@ plugins {
   id(Plugins.BuildPlugins.kotlinAndroid)
   id(Plugins.BuildPlugins.kotlinKapt)
   id(Plugins.BuildPlugins.navSafeArgs)
+  id("org.jetbrains.kotlin.android")
 }
 
 android {
@@ -43,6 +44,7 @@ android {
 }
 
 dependencies {
+  implementation("androidx.core:core-ktx:+")
   coreLibraryDesugaring(Dependencies.desugarJdkLibs)
 
   implementation(Dependencies.Androidx.activity)

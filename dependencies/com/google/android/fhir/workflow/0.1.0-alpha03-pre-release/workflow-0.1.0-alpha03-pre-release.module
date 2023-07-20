@@ -1,0 +1,1027 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.google.android.fhir",
+    "module": "workflow",
+    "version": "0.1.0-alpha03-pre-release",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "7.5.1"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "ca.uhn.hapi.fhir",
+          "module": "hapi-fhir-structures-r4",
+          "version": {
+            "requires": "6.0.1"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            },
+            {
+              "group": "*",
+              "module": "junit"
+            }
+          ]
+        }
+      ],
+      "files": [
+        {
+          "name": "workflow-0.1.0-alpha03-pre-release.aar",
+          "url": "workflow-0.1.0-alpha03-pre-release.aar",
+          "size": 86035,
+          "sha512": "a8718ad12444c3e41528bde8cf7d48a16083696930c1a7585ec687809055a1f4bcbf0db53935e3c2ebff018a9ade722a78ba4f2a7a8c6bdc1bb428a458fb05da",
+          "sha256": "5cb87f0c0752712e0b7815d2194ade6491e26639953d2c8ed4f804c54f764c91",
+          "sha1": "2c87a9595ed7eaab20740616ad13484b9834ec95",
+          "md5": "badba4d110cc6c83aaf7c3839dde1380"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "ca.uhn.hapi.fhir",
+          "module": "hapi-fhir-structures-r4",
+          "version": {
+            "requires": "6.0.1"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            },
+            {
+              "group": "*",
+              "module": "junit"
+            }
+          ]
+        },
+        {
+          "group": "androidx.core",
+          "module": "core-ktx",
+          "version": {
+            "requires": "1.2.0"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "org.opencds.cqf.cql",
+          "module": "engine",
+          "version": {
+            "requires": "2.4.0"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "org.opencds.cqf.cql",
+          "module": "engine.jackson",
+          "version": {
+            "requires": "2.4.0"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "org.opencds.cqf.cql",
+          "module": "evaluator",
+          "version": {
+            "requires": "2.4.0"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "org.opencds.cqf.cql",
+          "module": "evaluator.builder",
+          "version": {
+            "requires": "2.4.0"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "org.opencds.cqf.cql",
+          "module": "evaluator.dagger",
+          "version": {
+            "requires": "2.4.0"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "org.opencds.cqf.cql",
+          "module": "evaluator.plandefinition",
+          "version": {
+            "requires": "2.4.0"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "info.cqframework",
+          "module": "cql-to-elm",
+          "version": {
+            "requires": "2.4.0"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "info.cqframework",
+          "module": "elm",
+          "version": {
+            "requires": "2.4.0"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "info.cqframework",
+          "module": "elm-jackson",
+          "version": {
+            "requires": "2.4.0"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "info.cqframework",
+          "module": "model",
+          "version": {
+            "requires": "2.4.0"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "info.cqframework",
+          "module": "model-jackson",
+          "version": {
+            "requires": "2.4.0"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "com.jakewharton.timber",
+          "module": "timber",
+          "version": {
+            "requires": "5.0.1"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "com.fasterxml.jackson.core",
+          "module": "jackson-annotations",
+          "version": {
+            "requires": "2.14.1"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "com.fasterxml.jackson",
+          "module": "jackson-bom",
+          "version": {
+            "requires": "2.14.1"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "com.fasterxml.jackson.core",
+          "module": "jackson-core",
+          "version": {
+            "requires": "2.14.1"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "com.fasterxml.jackson.core",
+          "module": "jackson-databind",
+          "version": {
+            "requires": "2.14.1"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "com.fasterxml.jackson.dataformat",
+          "module": "jackson-dataformat-xml",
+          "version": {
+            "requires": "2.14.1"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "com.fasterxml.jackson.module",
+          "module": "jackson-module-jaxb-annotations",
+          "version": {
+            "requires": "2.14.1"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "com.fasterxml.jackson.datatype",
+          "module": "jackson-datatype-jsr310",
+          "version": {
+            "requires": "2.14.1"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "com.github.ben-manes.caffeine",
+          "module": "caffeine",
+          "version": {
+            "requires": "2.9.1"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-coroutines-android",
+          "version": {
+            "requires": "1.6.4"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-coroutines-core",
+          "version": {
+            "requires": "1.6.4"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "1.6.10"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "xerces",
+          "module": "xercesImpl",
+          "version": {
+            "requires": "2.12.2"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "com.google.android.fhir",
+          "module": "engine",
+          "version": {
+            "requires": "0.1.0-beta03"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        },
+        {
+          "group": "com.google.android.fhir",
+          "module": "knowledge",
+          "version": {
+            "requires": "0.1.0-alpha01"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            }
+          ]
+        }
+      ],
+      "files": [
+        {
+          "name": "workflow-0.1.0-alpha03-pre-release.aar",
+          "url": "workflow-0.1.0-alpha03-pre-release.aar",
+          "size": 86035,
+          "sha512": "a8718ad12444c3e41528bde8cf7d48a16083696930c1a7585ec687809055a1f4bcbf0db53935e3c2ebff018a9ade722a78ba4f2a7a8c6bdc1bb428a458fb05da",
+          "sha256": "5cb87f0c0752712e0b7815d2194ade6491e26639953d2c8ed4f804c54f764c91",
+          "sha1": "2c87a9595ed7eaab20740616ad13484b9834ec95",
+          "md5": "badba4d110cc6c83aaf7c3839dde1380"
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,11 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+plugins {
+  kotlin("jvm") version "1.9.0"
+}
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+  val kotlin_version by extra("1.9.0")
   repositories {
     google()
     mavenCentral()
@@ -9,6 +15,7 @@ buildscript {
     classpath(Plugins.androidGradlePlugin)
     classpath(Plugins.kotlinGradlePlugin)
     classpath(Plugins.navSafeArgsGradlePlugin)
+    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
   }
 }
 
@@ -17,6 +24,8 @@ allprojects {
     google()
     mavenCentral()
     maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
+    maven(url = uri("${project.rootDir}/dependencies"))
+
     gradlePluginPortal()
   }
   configureSpotless()
@@ -42,4 +51,19 @@ afterEvaluate {
       }
     }
   }
+}
+dependencies {
+  implementation(kotlin("stdlib-jdk8"))
+  implementation("androidx.appcompat:appcompat:1.6.1")
+}
+repositories {
+  mavenCentral()
+}
+val compileKotlin: KotlinCompile by tasks
+compileKotlin.kotlinOptions {
+  jvmTarget = "1.8"
+}
+val compileTestKotlin: KotlinCompile by tasks
+compileTestKotlin.kotlinOptions {
+  jvmTarget = "1.8"
 }

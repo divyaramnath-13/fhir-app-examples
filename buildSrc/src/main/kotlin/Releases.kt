@@ -26,6 +26,12 @@ object Releases {
     const val versionName = "1.0"
   }
 
+  object ConfigurableCare {
+    const val applicationId = "com.google.fhir.examples.configurablecare"
+    const val versionCode = 1
+    const val versionName = "1.0"
+  }
+
   fun MavenPom.useApache2License() {
     licenses {
       license {
