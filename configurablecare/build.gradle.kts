@@ -89,8 +89,7 @@ dependencies {
   implementation(Dependencies.androidFhirDataCapture)
   implementation(Dependencies.androidFhirEngine)
   implementation(Dependencies.androidFhirKnowledge)
-  implementation("com.google.android.fhir:workflow:0.1.0-alpha03-pre-release")
-//  implementation("com.google.android.fhir:workflow:0.1.0-alpha02-cc")
+  implementation("com.google.android.fhir:workflow:0.1.0-alpha03")
 
 //  testImplementation(Dependencies.junit)
 }
