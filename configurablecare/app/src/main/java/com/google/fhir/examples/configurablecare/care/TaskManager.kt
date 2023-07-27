@@ -28,6 +28,7 @@ import org.hl7.fhir.r4.model.PractitionerRole
 import org.hl7.fhir.r4.model.Questionnaire
 import org.hl7.fhir.r4.model.Reference
 import org.hl7.fhir.r4.model.ResourceType
+import org.hl7.fhir.r4.model.ServiceRequest
 import org.hl7.fhir.r4.model.Task
 import org.hl7.fhir.r4.model.Task.TaskStatus
 
@@ -101,6 +102,14 @@ class TaskManager(
     return questionnaires.firstOrNull()
   }
 
+  suspend fun fetchServiceRequestFromTaskLogicalId(taskResourceId: String): ServiceRequest {
+    val task = fhirEngine.get(ResourceType.Task, taskResourceId) as Task
+    return fhirEngine.get(
+      ResourceType.ServiceRequest,
+      task.focus.reference.substring("ServiceRequest/".length)
+    ) as ServiceRequest
+  }
+
   suspend fun getTasksForPatient(
     patientId: String,
     extraFilter: (Search.() -> Unit)?,
@@ -147,16 +156,35 @@ class TaskManager(
     return extraFilter?.let { getTasksForPatient(patientId, it, null).count() } ?: 0
   }
 
-  companion object {
-    fun setDeadline(maxDuration: String?, unit: String?): Date {
-      if (unit.isNullOrEmpty() || maxDuration.isNullOrEmpty())
-        return Date.from(Instant.now().plus(Period.ofDays(365))) // default: 1 year
-      return when (unit) {
-        "years" -> Date.from(Instant.now().plus(Period.ofDays(365 * maxDuration.toInt())))
-        "months" -> Date.from(Instant.now().plus(Period.ofDays(30 * maxDuration.toInt())))
-        "days" -> Date.from(Instant.now().plus(Period.ofDays(maxDuration.toInt())))
-        else -> Date.from(Instant.now().plus(Period.ofDays(365))) // default: 1 year
-      }
+  fun createTrackingTaskForServiceRequest(
+    serviceRequest: ServiceRequest,
+    configMap: MutableMap<String, String>,
+    subjectReference: Reference,
+    description: String?
+  ): Task {
+    val task = Task()
+    task.owner = serviceRequest.requester
+    task.description = "[Tracking Task] $description"
+    task.`for` = subjectReference
+    task.focus = Reference("ServiceRequest/${serviceRequest.id}")
+    task.status = TaskStatus.READY
+    task.intent = Task.TaskIntent.ORDER
+    task.lastModified = Date.from(Instant.now())
+
+    val serviceRequestFieldMap = ConfigurationManager.getServiceRequestConfigMap()
+    task.restriction.period.end =
+      setDeadline(serviceRequestFieldMap["maxDuration"], serviceRequestFieldMap["unit"])
+    return task
+  }
+
+  private fun setDeadline(maxDuration: String?, unit: String?): Date {
+    if (unit.isNullOrEmpty() || maxDuration.isNullOrEmpty())
+      return Date.from(Instant.now().plus(Period.ofDays(365))) // default: 1 year
+    return when (unit) {
+      "years" -> Date.from(Instant.now().plus(Period.ofDays(365 * maxDuration.toInt())))
+      "months" -> Date.from(Instant.now().plus(Period.ofDays(30 * maxDuration.toInt())))
+      "days" -> Date.from(Instant.now().plus(Period.ofDays(maxDuration.toInt())))
+      else -> Date.from(Instant.now().plus(Period.ofDays(365))) // default: 1 year
     }
   }
 }

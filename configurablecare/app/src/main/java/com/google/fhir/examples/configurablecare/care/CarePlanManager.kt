@@ -124,6 +124,7 @@ class CarePlanManager(
     if (cqlLibraryIdList.isEmpty()) {
       loadCarePlanResourcesFromDb()
     }
+
     for (planDefinitionId in planDefinitionIdList) {
       val carePlanProposal =
         fhirOperator.generateCarePlan(planDefinitionId = planDefinitionId, patientId = patientId)
@@ -141,7 +142,9 @@ class CarePlanManager(
     planDefinitionId: String,
     patientList: List<Patient>
   ) {
-    if (cqlLibraryIdList.isEmpty()) loadCarePlanResourcesFromDb()
+    if (cqlLibraryIdList.isEmpty()) {
+      loadCarePlanResourcesFromDb()
+    }
 
     for (patient in patientList) {
       val patientId = IdType(patient.id).idPart
@@ -160,7 +163,9 @@ class CarePlanManager(
 
   suspend fun applyAllPlanDefinitionsOnMultiplePatients(patientList: List<Patient>) {
 
-    if (cqlLibraryIdList.isEmpty()) loadCarePlanResourcesFromDb()
+    if (cqlLibraryIdList.isEmpty()) {
+      loadCarePlanResourcesFromDb()
+    }
 
     for (patient in patientList) {
       val patientId = IdType(patient.id).idPart

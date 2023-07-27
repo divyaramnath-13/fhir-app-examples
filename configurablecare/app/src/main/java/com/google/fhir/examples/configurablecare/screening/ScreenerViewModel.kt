@@ -28,8 +28,6 @@ import com.google.android.fhir.datacapture.mapping.ResourceMapper
 import com.google.fhir.examples.configurablecare.FhirApplication
 import com.google.fhir.examples.configurablecare.care.ConfigurationManager.getServiceRequestConfigMap
 import com.google.fhir.examples.configurablecare.care.TaskManager
-import java.time.Instant
-import java.util.Date
 import java.util.UUID
 import kotlinx.coroutines.launch
 import org.hl7.fhir.r4.model.Bundle
@@ -41,7 +39,6 @@ import org.hl7.fhir.r4.model.QuestionnaireResponse
 import org.hl7.fhir.r4.model.Reference
 import org.hl7.fhir.r4.model.Resource
 import org.hl7.fhir.r4.model.ServiceRequest
-import org.hl7.fhir.r4.model.Task
 
 data class ScreenerState(
   val isResourceSaved: Boolean = false,
@@ -57,6 +54,7 @@ class ScreenerViewModel(application: Application, private val state: SavedStateH
       FhirContext.forCached(FhirVersionEnum.R4).newJsonParser().parseResource(questionnaireString)
         as Questionnaire
   private var fhirEngine: FhirEngine = FhirApplication.fhirEngine(application.applicationContext)
+  private val taskManager: TaskManager = FhirApplication.taskManager(application.applicationContext)
   private val _screenerState = MutableLiveData(ScreenerState())
   val screenerState: LiveData<ScreenerState>
     get() = _screenerState
@@ -130,32 +128,17 @@ class ScreenerViewModel(application: Application, private val state: SavedStateH
             resource.id = serviceRequestId
             saveResourceToDatabase(resource)
             val task =
-              createTrackingTaskForServiceRequest(resource, serviceRequestId, subjectReference)
+              taskManager.createTrackingTaskForServiceRequest(
+                resource,
+                getServiceRequestConfigMap(),
+                subjectReference,
+                questionnaireResource.description
+              )
             saveResourceToDatabase(task)
           }
         }
       }
     }
-  }
-
-  private fun createTrackingTaskForServiceRequest(
-    serviceRequest: ServiceRequest,
-    serviceRequestId: String,
-    subjectReference: Reference
-  ): Task {
-    val task = Task()
-    task.owner = serviceRequest.requester
-    task.description = "[Tracking Task] " + questionnaireResource.description
-    task.`for` = subjectReference
-    task.focus = Reference("ServiceRequest/$serviceRequestId")
-    task.status = Task.TaskStatus.READY
-    task.intent = Task.TaskIntent.ORDER
-    task.lastModified = Date.from(Instant.now())
-
-    val serviceRequestFieldMap = getServiceRequestConfigMap()
-    task.restriction.period.end =
-      TaskManager.setDeadline(serviceRequestFieldMap["maxDuration"], serviceRequestFieldMap["unit"])
-    return task
   }
 
   private fun isRequiredFieldMissing(bundle: Bundle): Boolean {
