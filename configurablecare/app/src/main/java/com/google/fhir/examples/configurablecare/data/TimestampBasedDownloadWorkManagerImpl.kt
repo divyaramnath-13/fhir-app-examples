@@ -72,7 +72,10 @@ class TimestampBasedDownloadWorkManagerImpl(
         // Server should fetch the PractitionerRole corresponding to the health Professional
         "PractitionerRole",
         // Server should filter all the patients the Health Professional is assigned to
-        "Patient"
+        "Patient",
+        "Questionnaire",
+        "ValueSet",
+        "StructureMap"
       )
     )
 

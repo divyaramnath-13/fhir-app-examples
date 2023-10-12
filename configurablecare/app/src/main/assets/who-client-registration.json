@@ -21,9 +21,12 @@
       "status" : "active",
       "experimental" : false,
       "description" : "ValueSet for Sex for IMMZ-C-DE5.",
-      "expansion" : {
-        "contains" : [
+      "compose" : {
+        "include" : [
           {
+            "system" : "http://worldhealthorganization.github.io/smart-immunizations-measles/CodeSystem/IMMZ-C",
+            "concept" : [
+              {
                 "code" : "DE6",
                 "display" : "Male"
               },
@@ -40,8 +43,8 @@
                 "display" : "Intersex"
               }
             ]
-
-
+          }
+        ]
       }
     }
   ],

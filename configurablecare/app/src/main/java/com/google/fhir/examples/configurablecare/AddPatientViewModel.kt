@@ -24,13 +24,19 @@ import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import com.google.android.fhir.FhirEngine
 import com.google.android.fhir.datacapture.mapping.ResourceMapper
+import com.google.android.fhir.datacapture.mapping.StructureMapExtractionContext
 import com.google.android.fhir.datacapture.validation.Invalid
 import com.google.android.fhir.datacapture.validation.QuestionnaireResponseValidator
+import com.google.android.fhir.get
+import com.google.android.fhir.testing.jsonParser
 import java.util.UUID
 import kotlinx.coroutines.launch
 import org.hl7.fhir.r4.model.Patient
 import org.hl7.fhir.r4.model.Questionnaire
 import org.hl7.fhir.r4.model.QuestionnaireResponse
+import org.hl7.fhir.r4.model.ResourceType
+import org.hl7.fhir.r4.model.StructureMap
+import org.hl7.fhir.r4.utils.StructureMapUtilities
 
 /** ViewModel for patient registration screen {@link AddPatientFragment}. */
 class AddPatientViewModel(application: Application, private val state: SavedStateHandle) :
@@ -39,6 +45,7 @@ class AddPatientViewModel(application: Application, private val state: SavedStat
   val questionnaire: String
     get() = getQuestionnaireJson()
   val savedPatient = MutableLiveData<Patient?>()
+  val context = application.applicationContext
 
   private val questionnaireResource: Questionnaire
     get() =
@@ -66,14 +73,57 @@ class AddPatientViewModel(application: Application, private val state: SavedStat
         savedPatient.value = null
         return@launch
       }
-      val entry = ResourceMapper.extract(questionnaireResource, questionnaireResponse).entryFirstRep
-      if (entry.resource !is Patient) {
-        return@launch
+      // val mappingResource = fhirEngine.get<StructureMap>("IMMZCQRToPatient")
+      // mappingResource.
+      // val mapping = jsonParser.encodeResourceToString(mappingResource)
+
+      // val mapping = """
+      //   map "http://fhir.org/guides/who/smart-immunization/StructureMap/IMMZCQRToPatient" = "IMMZCQRToPatient"
+      //
+      //   uses "http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse" alias QResp as source
+      //   uses "http://fhir.org/guides/who/smart-immunization/StructureDefinition/IMMZCRegisterClient" alias IMMZC as source
+      //   uses "http://hl7.org/fhir/StructureDefinition/Patient" alias Patient as target
+      //
+      //   imports "http://fhir.org/guides/who/smart-immunization/StructureMap/IMMZCQRToLM"
+      //   imports "http://fhir.org/guides/who/smart-immunization/StructureMap/IMMZCLMToPatient"
+      //
+      //   group QRestToIMMZC(source qr : QResp, target patient : Patient) {
+      //     qr -> create('http://fhir.org/guides/who/smart-immunization/StructureDefinition/IMMZCRegisterClient') as model then {
+      //       qr -> model then QRespToIMMZC(qr, model) "QRtoLM";
+      //       qr -> patient then IMMZCToPatient(model, patient) "LMtoPatient";
+      //     } "QRtoPatient";
+      //   }
+      //
+      // """.trimIndent()
+      // val bundle = ResourceMapper.extract(questionnaireResource,
+      //                                     questionnaireResponse,
+      //                                     StructureMapExtractionContext(context = context)
+      //                                     { _, worker ->
+      //                                       StructureMapUtilities(worker).parse(mapping, "")
+      // })
+      val bundle = ResourceMapper.extract(questionnaireResource, questionnaireResponse)
+      var flag = false
+      var patient: Patient
+      for (entry in bundle.entry) {
+        if (entry.resource is Patient) {
+          patient = entry.resource as Patient
+          patient.id = generateUuid()
+          fhirEngine.create(patient)
+          savedPatient.value = patient
+
+          // create Immunization Review Task
+
+
+          flag = true
+        }
       }
-      val patient = entry.resource as Patient
-      patient.id = generateUuid()
-      fhirEngine.create(patient)
-      savedPatient.value = patient
+      if (!flag)
+        return@launch
+
+      // patient = entry.resource as Patient
+      // patient.id = generateUuid()
+      // fhirEngine.create(patient)
+      // savedPatient.value = patient
     }
   }
 
