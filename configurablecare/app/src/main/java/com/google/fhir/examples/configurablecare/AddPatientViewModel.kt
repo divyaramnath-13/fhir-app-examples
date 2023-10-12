@@ -29,13 +29,18 @@ import com.google.android.fhir.datacapture.validation.Invalid
 import com.google.android.fhir.datacapture.validation.QuestionnaireResponseValidator
 import com.google.android.fhir.get
 import com.google.android.fhir.testing.jsonParser
+import java.time.Instant
+import java.time.Period
+import java.util.Date
 import java.util.UUID
 import kotlinx.coroutines.launch
 import org.hl7.fhir.r4.model.Patient
 import org.hl7.fhir.r4.model.Questionnaire
 import org.hl7.fhir.r4.model.QuestionnaireResponse
+import org.hl7.fhir.r4.model.Reference
 import org.hl7.fhir.r4.model.ResourceType
 import org.hl7.fhir.r4.model.StructureMap
+import org.hl7.fhir.r4.model.Task
 import org.hl7.fhir.r4.utils.StructureMapUtilities
 
 /** ViewModel for patient registration screen {@link AddPatientFragment}. */
@@ -77,24 +82,24 @@ class AddPatientViewModel(application: Application, private val state: SavedStat
       // mappingResource.
       // val mapping = jsonParser.encodeResourceToString(mappingResource)
 
-      // val mapping = """
-      //   map "http://fhir.org/guides/who/smart-immunization/StructureMap/IMMZCQRToPatient" = "IMMZCQRToPatient"
-      //
-      //   uses "http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse" alias QResp as source
-      //   uses "http://fhir.org/guides/who/smart-immunization/StructureDefinition/IMMZCRegisterClient" alias IMMZC as source
-      //   uses "http://hl7.org/fhir/StructureDefinition/Patient" alias Patient as target
-      //
-      //   imports "http://fhir.org/guides/who/smart-immunization/StructureMap/IMMZCQRToLM"
-      //   imports "http://fhir.org/guides/who/smart-immunization/StructureMap/IMMZCLMToPatient"
-      //
-      //   group QRestToIMMZC(source qr : QResp, target patient : Patient) {
-      //     qr -> create('http://fhir.org/guides/who/smart-immunization/StructureDefinition/IMMZCRegisterClient') as model then {
-      //       qr -> model then QRespToIMMZC(qr, model) "QRtoLM";
-      //       qr -> patient then IMMZCToPatient(model, patient) "LMtoPatient";
-      //     } "QRtoPatient";
-      //   }
-      //
-      // """.trimIndent()
+      val mapping = """
+        map "http://fhir.org/guides/who/smart-immunization/StructureMap/IMMZCQRToPatient" = "IMMZCQRToPatient"
+
+        uses "http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse" alias QResp as source
+        uses "http://fhir.org/guides/who/smart-immunization/StructureDefinition/IMMZCRegisterClient" alias IMMZC as source
+        uses "http://hl7.org/fhir/StructureDefinition/Patient" alias Patient as target
+
+        imports "http://fhir.org/guides/who/smart-immunization/StructureMap/IMMZCQRToLM"
+        imports "http://fhir.org/guides/who/smart-immunization/StructureMap/IMMZCLMToPatient"
+
+        group QRestToIMMZC(source qr : QResp, target patient : Patient) {
+          qr -> create('http://fhir.org/guides/who/smart-immunization/StructureDefinition/IMMZCRegisterClient') as model then {
+            qr -> model then QRespToIMMZC(qr, model) "QRtoLM";
+            qr -> patient then IMMZCToPatient(model, patient) "LMtoPatient";
+          } "QRtoPatient";
+        }
+
+      """.trimIndent()
       // val bundle = ResourceMapper.extract(questionnaireResource,
       //                                     questionnaireResponse,
       //                                     StructureMapExtractionContext(context = context)
@@ -109,9 +114,11 @@ class AddPatientViewModel(application: Application, private val state: SavedStat
           patient = entry.resource as Patient
           patient.id = generateUuid()
           fhirEngine.create(patient)
-          savedPatient.value = patient
 
           // create Immunization Review Task
+          createImmunizationReviewTask(patient)
+          savedPatient.value = patient
+
 
 
           flag = true
@@ -125,6 +132,23 @@ class AddPatientViewModel(application: Application, private val state: SavedStat
       // fhirEngine.create(patient)
       // savedPatient.value = patient
     }
+  }
+
+  private suspend fun createImmunizationReviewTask(patient: Patient) {
+    val task = Task()
+    task.id = UUID.randomUUID().toString()
+    task.`for` = Reference(patient)
+    task.status = Task.TaskStatus.READY
+    task.intent = Task.TaskIntent.PROPOSAL
+    task.description = "Immunization Recommendation for ${patient.name.first().given} ${patient.name.first().family}"
+    task.lastModified = Date.from(Instant.now())
+    task.restriction.period.end = Date.from(Instant.now().plus(Period.ofDays(30 * 6)))  // 6 months
+    // Get CKD Questionnaire
+    task.focus = Reference(fhirEngine.get(ResourceType.Questionnaire, "Questionnaire-IMMZD1ClientHistory"))
+
+    print("About to create task")
+    fhirEngine.create(task)
+    print("Task created")
   }
 
   private fun getQuestionnaireJson(): String {

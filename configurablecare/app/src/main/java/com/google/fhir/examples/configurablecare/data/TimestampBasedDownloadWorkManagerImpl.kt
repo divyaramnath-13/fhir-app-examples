@@ -75,7 +75,9 @@ class TimestampBasedDownloadWorkManagerImpl(
         "Patient",
         "Questionnaire",
         "ValueSet",
-        "StructureMap"
+        "StructureDefinition",
+        "StructureMap",
+        "Task"
       )
     )
 

@@ -34,7 +34,7 @@ class TaskItemViewHolder(binding: ItemTaskViewBinding) : RecyclerView.ViewHolder
     this.dueDate.text =
       if (taskItem.status == "ready")
         "Due " + getDate(taskItem.dueDate) + " | Owner: " + taskItem.owner
-      else "Completed " + getDate(taskItem.completedDate) + " | Owner: " + taskItem.owner
+      else "Completed " + getDate(taskItem.completedDate) // + " | Owner: " + taskItem.owner
     this.taskIcon.setImageResource(
       if (taskItem.status == "ready") R.drawable.ic_task else R.drawable.ic_task_check
     )

@@ -16,6 +16,7 @@
 package com.google.fhir.examples.configurablecare.care
 
 import com.google.android.fhir.FhirEngine
+import com.google.android.fhir.get
 import com.google.android.fhir.search.Operation
 import com.google.android.fhir.search.Search
 import com.google.android.fhir.search.search
@@ -104,14 +105,15 @@ class TaskManager(private var fhirEngine: FhirEngine) : RequestResourceManager<T
    */
   suspend fun fetchQuestionnaireFromTaskLogicalId(taskResourceId: String): Questionnaire? {
     val task = fhirEngine.get(ResourceType.Task, taskResourceId) as Task
-    val questionnaires =
-      fhirEngine.search<Questionnaire> {
-        filter(
-          Questionnaire.IDENTIFIER,
-          { value = of(task.focus.reference.substring("Questionnaire/".length)) }
-        )
-      }
-    return questionnaires.firstOrNull()
+    // val questionnaires =
+    //   fhirEngine.search<Questionnaire> {
+    //     filter(
+    //       Questionnaire.IDENTIFIER,
+    //       { value = of(task.focus.reference.substring("Questionnaire/".length)) }
+    //     )
+    //   }
+    val questionnaire = fhirEngine.get<Questionnaire>(task.focus.reference.substring("Questionnaire/".length))
+    return questionnaire // questionnaires.firstOrNull()
   }
 
   /** Fetch all Tasks for a given Patient */

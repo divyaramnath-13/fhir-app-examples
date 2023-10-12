@@ -85,7 +85,7 @@ internal fun Task.toTaskItem(position: Int): ListScreeningsViewModel.TaskItem {
     if (hasRestriction() && restriction.hasPeriod()) restriction.period.end.toString()
     else "Sample End Date"
   val completedDate = if (hasLastModified()) lastModified.toString() else dueDate
-  val owner = if (owner.hasDisplay()) owner.display else owner.reference
+  val owner = if (owner == null) "" else if (owner.hasDisplay()) owner.display else ""
   val clickable =
     focus.reference.contains("Questionnaire") && taskStatus != TaskStatus.COMPLETED.toCode()
 
