@@ -8,9 +8,9 @@ buildscript {
   dependencies {
     classpath("com.android.tools.build:gradle:8.0.2")
     classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0")
-    classpath("com.google.gms:google-services:4.3.15")
+    classpath("com.google.gms:google-services:4.4.0")
     classpath("com.diffplug.spotless:spotless-plugin-gradle:6.6.0")
-    classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.6.0")
+    classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.4")
 
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle.kts files
@@ -21,6 +21,7 @@ allprojects {
   repositories {
     google()
     mavenCentral()
+    maven(url = uri("${project.rootDir}/dependencies"))
     gradlePluginPortal()
   }
   configureSpotless()

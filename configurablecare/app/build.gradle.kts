@@ -44,6 +44,13 @@ android {
 }
 
 configurations.all {
+  // exclude(module = "hapi-fhir-caching-caffeine")
+  // exclude(group = "com.github.ben-manes.caffeine", module = "caffeine")
+  // resolutionStrategy {
+  //   force("com.google.guava:guava:32.1.2-android")
+  //   force("ca.uhn.hapi.fhir:hapi-fhir-caching-guava:6.8.0")
+  // }
+
   resolutionStrategy {
     force(HapiFhir.caffeine)
 

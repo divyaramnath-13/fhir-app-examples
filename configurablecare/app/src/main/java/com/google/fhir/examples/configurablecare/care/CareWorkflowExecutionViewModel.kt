@@ -67,11 +67,11 @@ class CareWorkflowExecutionViewModel(application: Application) : AndroidViewMode
          * exhaustion.
          */
         runBlocking {
-          carePlanManager.applyPlanDefinitionOnPatient(
-            currentPlanDefinitionId,
-            careWorkflowExecutionRequest.patient,
-            getActiveRequestResourceConfiguration()
-          )
+          // carePlanManager.applyPlanDefinitionOnPatient(
+          //   currentPlanDefinitionId,
+          //   careWorkflowExecutionRequest.patient,
+          //   getActiveRequestResourceConfiguration()
+          // )
         }
         patientFlowForCareWorkflowExecution.emit(
           CareWorkflowExecutionRequest(

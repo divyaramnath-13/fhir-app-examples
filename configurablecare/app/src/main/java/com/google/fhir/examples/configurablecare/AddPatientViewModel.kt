@@ -34,14 +34,59 @@ import java.time.Period
 import java.util.Date
 import java.util.UUID
 import kotlinx.coroutines.launch
+import org.hl7.fhir.exceptions.FHIRException
+import org.hl7.fhir.r4.model.Base
+import org.hl7.fhir.r4.model.Coding
+import org.hl7.fhir.r4.model.Immunization
 import org.hl7.fhir.r4.model.Patient
 import org.hl7.fhir.r4.model.Questionnaire
 import org.hl7.fhir.r4.model.QuestionnaireResponse
 import org.hl7.fhir.r4.model.Reference
+import org.hl7.fhir.r4.model.ResourceFactory
 import org.hl7.fhir.r4.model.ResourceType
+import org.hl7.fhir.r4.model.StructureDefinition
 import org.hl7.fhir.r4.model.StructureMap
 import org.hl7.fhir.r4.model.Task
+import org.hl7.fhir.r4.terminologies.ConceptMapEngine
 import org.hl7.fhir.r4.utils.StructureMapUtilities
+
+class TransformSupportServices(private val outputs: MutableList<Base>) :
+  StructureMapUtilities.ITransformerServices {
+  override fun log(message: String) {}
+
+  fun getContext(): org.hl7.fhir.r4.context.SimpleWorkerContext {
+    return org.hl7.fhir.r4.context.SimpleWorkerContext()
+  }
+
+  @Throws(FHIRException::class)
+  override fun createType(appInfo: Any, name: String): Base {
+    return when (name) {
+      "Immunization_Reaction" -> Immunization.ImmunizationReactionComponent()
+      else -> StructureDefinition() // ResourceFactory.createResourceOrType(name)
+    }
+  }
+
+  override fun createResource(appInfo: Any, res: Base, atRootofTransform: Boolean): Base {
+    if (atRootofTransform) outputs.add(res)
+    return res
+  }
+
+  @Throws(FHIRException::class)
+  override fun translate(appInfo: Any, source: Coding, conceptMapUrl: String): Coding {
+    val cme = ConceptMapEngine(getContext())
+    return cme.translate(source, conceptMapUrl)
+  }
+
+  @Throws(FHIRException::class)
+  override fun resolveReference(appContext: Any, url: String): Base {
+    throw FHIRException("resolveReference is not supported yet")
+  }
+
+  @Throws(FHIRException::class)
+  override fun performSearch(appContext: Any, url: String): List<Base> {
+    throw FHIRException("performSearch is not supported yet")
+  }
+}
 
 /** ViewModel for patient registration screen {@link AddPatientFragment}. */
 class AddPatientViewModel(application: Application, private val state: SavedStateHandle) :
@@ -82,30 +127,44 @@ class AddPatientViewModel(application: Application, private val state: SavedStat
       // mappingResource.
       // val mapping = jsonParser.encodeResourceToString(mappingResource)
 
-      val mapping = """
-        map "http://fhir.org/guides/who/smart-immunization/StructureMap/IMMZCQRToPatient" = "IMMZCQRToPatient"
+    //   val questionnaireResponseStr = """
+    //   {"resourceType":"QuestionnaireResponse","questionnaire":"http://worldhealthorganization.github.io/smart-immunizations-measles/Questionnaire/Questionnaire-IMMZCRegisterClient","item":[{"linkId":"uniqueId","text":"Unique identifier for the client","answer":[{"valueString":"asda"}]},{"linkId":"name","text":"Client name","item":[{"linkId":"fullName","text":"Full name of the client","answer":[{"valueString":"sadasd"}]},{"linkId":"firstName","text":"First or given name","answer":[{"valueString":"wdas"}]},{"linkId":"familyName","text":"Family name","answer":[{"valueString":"asdasd"}]}]},{"linkId":"sex","text":"Sex","answer":[{"valueCoding":{"code":"DE7","display":"Female"}}]},{"linkId":"birthDate","text":"Birth Date","answer":[{"valueDate":"1991-11-11"}]},{"linkId":"caregiver","text":"Care giver name","item":[{"linkId":"cgfullName","text":"Full name of the care giver","answer":[{"valueString":"qwe"}]},{"linkId":"cgfirstName","text":"First or given name","answer":[{"valueString":"wedqw"}]},{"linkId":"cgfamilyName","text":"Family name","answer":[{"valueString":"we"}]}]},{"linkId":"phone","text":"Client Phone number","answer":[{"valueString":"23123"}]},{"linkId":"administrativeArea","text":"Administrative area"},{"linkId":"healthWorker","text":"Health Worker","answer":[{"valueBoolean":true}]}]}
+    // """.trimIndent()
+    //   val questionnaireResponse = jsonParser.parseResource(questionnaireResponseStr) as QuestionnaireResponse
+    //
+    //
+    //   val mapping = """
+    //     map "http://fhir.org/guides/who/smart-immunization/StructureMap/IMMZCQRToPatient" = "IMMZCQRToPatient"
+    //
+    //     uses "http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse" alias QResp as source
+    //     uses "http://fhir.org/guides/who/smart-immunization/StructureDefinition/IMMZCRegisterClient" alias IMMZC as source
+    //     uses "http://hl7.org/fhir/StructureDefinition/Patient" alias Patient as target
+    //
+    //     imports "http://fhir.org/guides/who/smart-immunization/StructureMap/IMMZCQRToLM"
+    //     imports "http://fhir.org/guides/who/smart-immunization/StructureMap/IMMZCLMToPatient"
+    //
+    //     group QRestToIMMZC(source qr : QResp, target patient : Patient) {
+    //       qr -> create('http://fhir.org/guides/who/smart-immunization/StructureDefinition/IMMZCRegisterClient') as model then {
+    //         qr -> model then QRespToIMMZC(qr, model) "QRtoLM";
+    //         qr -> patient then IMMZCToPatient(model, patient) "LMtoPatient";
+    //       } "QRtoPatient";
+    //     }
+    //
+    //   """.trimIndent()
+    //   // val bundle = ResourceMapper.extract(questionnaireResource,
+    //   //                                     questionnaireResponse,
+    //   //                                     StructureMapExtractionContext(context = context)
+    //   //                                     { _, worker ->
+    //   //                                       StructureMapUtilities(worker).parse(mapping, "")
+    //   // })
+    //   val transformSupportServices = TransformSupportServices(mutableListOf())
+    //   val bundle =
+    //     ResourceMapper.extract(
+    //       questionnaireResource,
+    //       questionnaireResponse,
+    //       StructureMapExtractionContext(context, transformSupportServices) { _, worker ->
+    //         StructureMapUtilities(worker).parse(mapping, "")})
 
-        uses "http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse" alias QResp as source
-        uses "http://fhir.org/guides/who/smart-immunization/StructureDefinition/IMMZCRegisterClient" alias IMMZC as source
-        uses "http://hl7.org/fhir/StructureDefinition/Patient" alias Patient as target
-
-        imports "http://fhir.org/guides/who/smart-immunization/StructureMap/IMMZCQRToLM"
-        imports "http://fhir.org/guides/who/smart-immunization/StructureMap/IMMZCLMToPatient"
-
-        group QRestToIMMZC(source qr : QResp, target patient : Patient) {
-          qr -> create('http://fhir.org/guides/who/smart-immunization/StructureDefinition/IMMZCRegisterClient') as model then {
-            qr -> model then QRespToIMMZC(qr, model) "QRtoLM";
-            qr -> patient then IMMZCToPatient(model, patient) "LMtoPatient";
-          } "QRtoPatient";
-        }
-
-      """.trimIndent()
-      // val bundle = ResourceMapper.extract(questionnaireResource,
-      //                                     questionnaireResponse,
-      //                                     StructureMapExtractionContext(context = context)
-      //                                     { _, worker ->
-      //                                       StructureMapUtilities(worker).parse(mapping, "")
-      // })
       val bundle = ResourceMapper.extract(questionnaireResource, questionnaireResponse)
       var flag = false
       var patient: Patient
@@ -118,8 +177,6 @@ class AddPatientViewModel(application: Application, private val state: SavedStat
           // create Immunization Review Task
           createImmunizationReviewTask(patient)
           savedPatient.value = patient
-
-
 
           flag = true
         }

@@ -1,0 +1,780 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.google.android.fhir",
+    "module": "workflow",
+    "version": "0.1.0-alpha04-test",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.0"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "ca.uhn.hapi.fhir",
+          "module": "hapi-fhir-structures-r4",
+          "version": {
+            "requires": "6.8.0"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            },
+            {
+              "group": "org.antlr",
+              "module": "antlr4"
+            },
+            {
+              "group": "org.eclipse.persistence",
+              "module": "org.eclipse.persistence.moxy"
+            },
+            {
+              "group": "*",
+              "module": "hapi-fhir-caching-caffeine"
+            },
+            {
+              "group": "com.github.ben-manes.caffeine",
+              "module": "caffeine"
+            },
+            {
+              "group": "*",
+              "module": "junit"
+            }
+          ]
+        },
+        {
+          "group": "ca.uhn.hapi.fhir",
+          "module": "hapi-fhir-caching-guava",
+          "version": {
+            "requires": "6.8.0"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            },
+            {
+              "group": "org.antlr",
+              "module": "antlr4"
+            },
+            {
+              "group": "org.eclipse.persistence",
+              "module": "org.eclipse.persistence.moxy"
+            },
+            {
+              "group": "*",
+              "module": "hapi-fhir-caching-caffeine"
+            },
+            {
+              "group": "com.github.ben-manes.caffeine",
+              "module": "caffeine"
+            }
+          ]
+        }
+      ],
+      "files": [
+        {
+          "name": "workflow-0.1.0-alpha04-test.aar",
+          "url": "workflow-0.1.0-alpha04-test.aar",
+          "size": 46121,
+          "sha512": "8129a228e203b98fd3a26318fd5b617669182a1df74cb0d5f28765ee5f0baf56758a39deba63acf0921e412da75b937038e55d3206e48c6cae0a65188c4ff1cc",
+          "sha256": "d3994447759d8dd749ff52bb4aee5ae8c1efe566c5ff44e6c97fa1f92ff1cf2e",
+          "sha1": "10f6a2ecf90f4354bc09acd3a01e769d26cabb13",
+          "md5": "3836806c97fd986ade1a3df112578a8b"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.core",
+          "module": "core-ktx",
+          "version": {
+            "requires": "1.10.1"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            },
+            {
+              "group": "org.antlr",
+              "module": "antlr4"
+            },
+            {
+              "group": "org.eclipse.persistence",
+              "module": "org.eclipse.persistence.moxy"
+            },
+            {
+              "group": "*",
+              "module": "hapi-fhir-caching-caffeine"
+            },
+            {
+              "group": "com.github.ben-manes.caffeine",
+              "module": "caffeine"
+            }
+          ]
+        },
+        {
+          "group": "org.opencds.cqf.fhir",
+          "module": "cqf-fhir-cr",
+          "version": {
+            "requires": "3.0.0-PRE9-SNAPSHOT"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            },
+            {
+              "group": "org.antlr",
+              "module": "antlr4"
+            },
+            {
+              "group": "org.eclipse.persistence",
+              "module": "org.eclipse.persistence.moxy"
+            },
+            {
+              "group": "*",
+              "module": "hapi-fhir-caching-caffeine"
+            },
+            {
+              "group": "com.github.ben-manes.caffeine",
+              "module": "caffeine"
+            }
+          ]
+        },
+        {
+          "group": "org.opencds.cqf.fhir",
+          "module": "cqf-fhir-jackson",
+          "version": {
+            "requires": "3.0.0-PRE9-SNAPSHOT"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            },
+            {
+              "group": "org.antlr",
+              "module": "antlr4"
+            },
+            {
+              "group": "org.eclipse.persistence",
+              "module": "org.eclipse.persistence.moxy"
+            },
+            {
+              "group": "*",
+              "module": "hapi-fhir-caching-caffeine"
+            },
+            {
+              "group": "com.github.ben-manes.caffeine",
+              "module": "caffeine"
+            }
+          ]
+        },
+        {
+          "group": "com.jakewharton.timber",
+          "module": "timber",
+          "version": {
+            "requires": "5.0.1"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            },
+            {
+              "group": "org.antlr",
+              "module": "antlr4"
+            },
+            {
+              "group": "org.eclipse.persistence",
+              "module": "org.eclipse.persistence.moxy"
+            },
+            {
+              "group": "*",
+              "module": "hapi-fhir-caching-caffeine"
+            },
+            {
+              "group": "com.github.ben-manes.caffeine",
+              "module": "caffeine"
+            }
+          ]
+        },
+        {
+          "group": "ca.uhn.hapi.fhir",
+          "module": "hapi-fhir-caching-guava",
+          "version": {
+            "requires": "6.8.0"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            },
+            {
+              "group": "org.antlr",
+              "module": "antlr4"
+            },
+            {
+              "group": "org.eclipse.persistence",
+              "module": "org.eclipse.persistence.moxy"
+            },
+            {
+              "group": "*",
+              "module": "hapi-fhir-caching-caffeine"
+            },
+            {
+              "group": "com.github.ben-manes.caffeine",
+              "module": "caffeine"
+            }
+          ]
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-coroutines-android",
+          "version": {
+            "requires": "1.7.2"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            },
+            {
+              "group": "org.antlr",
+              "module": "antlr4"
+            },
+            {
+              "group": "org.eclipse.persistence",
+              "module": "org.eclipse.persistence.moxy"
+            },
+            {
+              "group": "*",
+              "module": "hapi-fhir-caching-caffeine"
+            },
+            {
+              "group": "com.github.ben-manes.caffeine",
+              "module": "caffeine"
+            }
+          ]
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-coroutines-core",
+          "version": {
+            "requires": "1.7.2"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            },
+            {
+              "group": "org.antlr",
+              "module": "antlr4"
+            },
+            {
+              "group": "org.eclipse.persistence",
+              "module": "org.eclipse.persistence.moxy"
+            },
+            {
+              "group": "*",
+              "module": "hapi-fhir-caching-caffeine"
+            },
+            {
+              "group": "com.github.ben-manes.caffeine",
+              "module": "caffeine"
+            }
+          ]
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "1.8.20"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            },
+            {
+              "group": "org.antlr",
+              "module": "antlr4"
+            },
+            {
+              "group": "org.eclipse.persistence",
+              "module": "org.eclipse.persistence.moxy"
+            },
+            {
+              "group": "*",
+              "module": "hapi-fhir-caching-caffeine"
+            },
+            {
+              "group": "com.github.ben-manes.caffeine",
+              "module": "caffeine"
+            }
+          ]
+        },
+        {
+          "group": "xerces",
+          "module": "xercesImpl",
+          "version": {
+            "requires": "2.12.2"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            },
+            {
+              "group": "org.antlr",
+              "module": "antlr4"
+            },
+            {
+              "group": "org.eclipse.persistence",
+              "module": "org.eclipse.persistence.moxy"
+            },
+            {
+              "group": "*",
+              "module": "hapi-fhir-caching-caffeine"
+            },
+            {
+              "group": "com.github.ben-manes.caffeine",
+              "module": "caffeine"
+            }
+          ]
+        },
+        {
+          "group": "com.google.android.fhir",
+          "module": "engine",
+          "version": {
+            "requires": "0.1.0-beta04"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            },
+            {
+              "group": "org.antlr",
+              "module": "antlr4"
+            },
+            {
+              "group": "org.eclipse.persistence",
+              "module": "org.eclipse.persistence.moxy"
+            },
+            {
+              "group": "*",
+              "module": "hapi-fhir-caching-caffeine"
+            },
+            {
+              "group": "com.github.ben-manes.caffeine",
+              "module": "caffeine"
+            },
+            {
+              "group": "*",
+              "module": "truth"
+            }
+          ]
+        },
+        {
+          "group": "com.google.android.fhir",
+          "module": "knowledge",
+          "version": {
+            "requires": "0.1.0-alpha02"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            },
+            {
+              "group": "org.antlr",
+              "module": "antlr4"
+            },
+            {
+              "group": "org.eclipse.persistence",
+              "module": "org.eclipse.persistence.moxy"
+            },
+            {
+              "group": "*",
+              "module": "hapi-fhir-caching-caffeine"
+            },
+            {
+              "group": "com.github.ben-manes.caffeine",
+              "module": "caffeine"
+            }
+          ]
+        },
+        {
+          "group": "ca.uhn.hapi.fhir",
+          "module": "hapi-fhir-structures-r4",
+          "version": {
+            "requires": "6.8.0"
+          },
+          "excludes": [
+            {
+              "group": "*",
+              "module": "xpp3"
+            },
+            {
+              "group": "*",
+              "module": "xpp3_min"
+            },
+            {
+              "group": "*",
+              "module": "xmlpull"
+            },
+            {
+              "group": "*",
+              "module": "javax.json"
+            },
+            {
+              "group": "*",
+              "module": "jcl-over-slf4j"
+            },
+            {
+              "group": "org.apache.httpcomponents",
+              "module": "*"
+            },
+            {
+              "group": "org.antlr",
+              "module": "antlr4"
+            },
+            {
+              "group": "org.eclipse.persistence",
+              "module": "org.eclipse.persistence.moxy"
+            },
+            {
+              "group": "*",
+              "module": "hapi-fhir-caching-caffeine"
+            },
+            {
+              "group": "com.github.ben-manes.caffeine",
+              "module": "caffeine"
+            },
+            {
+              "group": "*",
+              "module": "junit"
+            }
+          ]
+        }
+      ],
+      "files": [
+        {
+          "name": "workflow-0.1.0-alpha04-test.aar",
+          "url": "workflow-0.1.0-alpha04-test.aar",
+          "size": 46121,
+          "sha512": "8129a228e203b98fd3a26318fd5b617669182a1df74cb0d5f28765ee5f0baf56758a39deba63acf0921e412da75b937038e55d3206e48c6cae0a65188c4ff1cc",
+          "sha256": "d3994447759d8dd749ff52bb4aee5ae8c1efe566c5ff44e6c97fa1f92ff1cf2e",
+          "sha1": "10f6a2ecf90f4354bc09acd3a01e769d26cabb13",
+          "md5": "3836806c97fd986ade1a3df112578a8b"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseSourcePublication",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "workflow-0.1.0-alpha04-test-sources.jar",
+          "url": "workflow-0.1.0-alpha04-test-sources.jar",
+          "size": 13204,
+          "sha512": "b0a0842d8432a144a4137043838d143f0e9f3fb1c1921b9a7765e147727b75f5f3b94173707b1ce6e364eef895b4ce64993caaa33d5437634f50cd592d3f9f32",
+          "sha256": "63c644bfb3a6b08761a83f214c6430921bd2c05d6594ff174b2c201d7a9b149b",
+          "sha1": "a11f2abeec7eb48e928c5ae2591653bdc57decd7",
+          "md5": "7dadd5aff886605ffe508b56499eb63e"
+        }
+      ]
+    }
+  ]
+}

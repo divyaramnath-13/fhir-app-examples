@@ -26,10 +26,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.fhir.datacapture.mapping.ResourceMapper
+import com.google.android.fhir.datacapture.mapping.StructureMapExtractionContext
+import com.google.android.fhir.testing.jsonParser
 import com.google.fhir.examples.configurablecare.care.CareConfiguration
 import com.google.fhir.examples.configurablecare.care.CareWorkflowExecutionViewModel
 import com.google.fhir.examples.configurablecare.care.ConfigurationManager
 import com.google.fhir.examples.configurablecare.databinding.FragmentHomeBinding
+import org.hl7.fhir.r4.model.Patient
+import org.hl7.fhir.r4.model.Questionnaire
+import org.hl7.fhir.r4.model.QuestionnaireResponse
+import org.hl7.fhir.r4.utils.StructureMapUtilities
 
 class HomeFragment : Fragment() {
   private lateinit var careConfiguration: CareConfiguration
