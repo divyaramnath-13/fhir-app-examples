@@ -80,6 +80,7 @@ class CarePlanManager(
   ): Collection<Resource> {
     var bundleCollection: Collection<Resource> = mutableListOf()
 
+    knowledgeManager.install(writeToFile(planDefinition))
     for (resource in planDefinition.contained) {
       if (resource is Bundle) {
         for (entry in resource.entry) {
@@ -137,12 +138,11 @@ class CarePlanManager(
     val carePlanProposal =
       fhirOperator.generateCarePlan(
         planDefinition =
-          CanonicalType("http://localhost/PlanDefinition/PlanDefinitionCancerScreening"),
+          CanonicalType(planDefinitionId),
         subject = "Patient/$patientId"
-      )
-      //      fhirOperator.generateCarePlan(planDefinitionId = CanonicalType(planDefinitionId),
-      // subject = patientId, encounterId = null)
-      as CarePlan
+      ) as CarePlan
+
+    println(jsonParser.encodeResourceToString(carePlanProposal))
 
     // Fetch existing CarePlan of record for the Patient or create a new one if it does not exist
     val carePlanOfRecord = getCarePlanOfRecordForPatient(patient)
